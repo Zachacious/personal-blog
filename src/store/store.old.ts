@@ -19,7 +19,6 @@ type NotifierStore<T> = {
 
 const createNotifierStore = <T>(
   name: string,
-  defaultValue: T,
   storageType: StorageType = StorageType.Local
 ): NotifierStore<T> => {
   const storage =
@@ -29,7 +28,7 @@ const createNotifierStore = <T>(
 
   const get = (key: string) => {
     const value = storage.getItem(`${name}-${key}`);
-    return value ? JSON.parse(value) : defaultValue;
+    return value ? JSON.parse(value) : undefined;
   };
 
   const set = (key: string, value: T) => {
@@ -71,3 +70,4 @@ const createNotifierStore = <T>(
 };
 
 export default createNotifierStore;
+export type { NotifierStore };
