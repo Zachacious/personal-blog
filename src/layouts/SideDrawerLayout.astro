@@ -1,5 +1,4 @@
 ---
-
 export interface Props {
 	title: string;
 }
@@ -17,9 +16,26 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<div class="drawer drawer-mobile">
+  <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content flex flex-col items-center justify-center">
+    <!-- Page content here -->
+    <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+  <slot />
+  </div> 
+  <div class="drawer-side">
+    <label for="my-drawer" class="drawer-overlay"></label> 
+    <ul class="menu p-4 w-80 bg-base-100 text-base-content">
+      <!-- Sidebar content here -->
+      <li><a>Sidebar Item 1</a></li>
+      <li><a>Sidebar Item 2</a></li>
+    </ul>
+  
+  </div>
+</div>
 	</body>
 </html>
+
 <style is:global>
 	:root {
 		--accent: 124, 58, 237;
@@ -34,3 +50,5 @@ const { title } = Astro.props;
 			Bitstream Vera Sans Mono, Courier New, monospace;
 	}
 </style>
+
+

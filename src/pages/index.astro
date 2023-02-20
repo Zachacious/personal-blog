@@ -1,9 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
+// import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import SideDrawerLayout from '../layouts/SideDrawerLayout.astro';
 ---
 
-<Layout title="Welcome to Astro.">
+<SideDrawerLayout title="Welcome to Astro.">
 	<main>
 		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
 		<p class="instructions">
@@ -33,7 +34,7 @@ import Card from '../components/Card.astro';
 			/>
 		</ul>
 	</main>
-</Layout>
+</SideDrawerLayout>
 
 <style>
 	main {
