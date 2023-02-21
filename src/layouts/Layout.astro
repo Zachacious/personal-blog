@@ -1,5 +1,7 @@
 ---
 import ThemeToggle from "../components/ThemeToggle.astro";
+import "@fontsource/poppins";
+import "@fontsource/audiowide";
 
 export interface Props {
   title: string;
@@ -37,15 +39,28 @@ const { title } = Astro.props;
           >Open drawer</label
         >
         <slot />
+        <ThemeToggle />
       </div>
       <div class="drawer-side">
         <label for="my-drawer" class="drawer-overlay"></label>
 
-        <ul class="menu p-4 w-80 bg-base-300 text-base-content">
+        <ul class="menu w-80 bg-base-300 text-base-content">
           <!-- Sidebar content here -->
-          <ThemeToggle />
-          <li><a>Sidebar Item 1</a></li>
-          <li><a>Sidebar Item 2</a></li>
+          <div class="w-full">
+            <img
+              class="w-full side-img"
+              src="/zach_web_dark.jpg"
+              alt="Zach Moore"
+            />
+          </div>
+          <div class="w-full p-4">
+            <div class="w-full text-4xl text-error text-bold title">
+              Zach Moore
+            </div>
+
+            <li><a>Sidebar Item 1</a></li>
+            <li><a>Sidebar Item 2</a></li>
+          </div>
         </ul>
       </div>
     </div>
@@ -63,11 +78,24 @@ const { title } = Astro.props;
     );
   }
   html {
-    font-family: system-ui, sans-serif;
+    font-family: "Poppins", system-ui, sans-serif;
     background-color: #f6f6f6;
   }
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+
+  .title {
+    font-family: "Audiowide", sans-serif;
+  }
+
+  /* .drawer-side {
+    max-width: 280px;
+  } */
+
+  .side-img {
+    object-fit: cover;
+    object-position: center;
   }
 </style>
