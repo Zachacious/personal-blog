@@ -5,8 +5,32 @@ import SideDrawerLayout from "../layouts/Layout.astro";
 ---
 
 <SideDrawerLayout title="Welcome to Astro.">
-  <main>
-    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+  <main class="m-auto max-w-2xl">
+    <p>
+      <h2 class="text-9xl font-bold title text-primary">Hello</h2>
+    </p>
+    <div class="flex">
+      <div class="text-neutral mx-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="5 7 15 20"
+          class="w-20"
+          fill="currentColor"
+          ><title>format-quote-open</title><path
+            d="M10,7L8,11H11V17H5V11L7,7H10M18,7L16,11H19V17H13V11L15,7H18Z"
+          ></path></svg
+        >
+      </div>
+      <p class="text-3xl">
+        <span
+          >I'm Zach. I'm a software engineer, technologist and a bit of an
+          artist. I work with awesome people and create cool things. You can
+          find my exploits here.</span
+        >
+      </p>
+    </div>
+
+    <!-- <h1>Welcome to <span class="text-gradient">Astro</span></h1>
     <p class="instructions">
       To get started, open the directory <code>src/pages</code> in your project.<br
       />
@@ -33,15 +57,15 @@ import SideDrawerLayout from "../layouts/Layout.astro";
         title="Community"
         body="Come say hi to our amazing Discord community. ❤️"
       />
-    </ul>
+    </ul> -->
   </main>
 </SideDrawerLayout>
 
 <style>
   main {
-    margin: auto;
-    padding: 1.5rem;
-    max-width: 60ch;
+    /* margin: auto; */
+    /* padding: 1.5rem; */
+    /* max-width: 60ch; */
   }
   h1 {
     font-size: 3rem;
@@ -80,4 +104,8 @@ import SideDrawerLayout from "../layouts/Layout.astro";
     gap: 1rem;
     padding: 0;
   }
+
+  /* .title {
+    font-family: "Teko", sans-serif;
+  } */
 </style>
