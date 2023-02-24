@@ -13,23 +13,23 @@
 
   state.value.subscribe((themeState) => {
     if (!themeToggle) return;
-    themeToggle.checked = themeState.theme === "dark";
+    themeToggle.checked = themeState.theme === "light";
   });
 
   // set initial state of checkbox
   if (themeToggle) {
-    themeToggle.checked = (state.value.get().theme ?? "") === "dark";
+    themeToggle.checked = (state.value.get().theme ?? "") === "light";
   }
 </script>
 
-<div class="w-full flex justify-end h-fit p-4 fixed top-0 right-0">
-  <label class="swap swap-rotate">
+<div class="flex items-center">
+  <label class="swap swap-rotate text-secondary">
     <!-- this hidden checkbox controls the state -->
     <input id="themeToggle" type="checkbox" />
 
     <!-- sun icon -->
     <svg
-      class="swap-on fill-current w-6"
+      class="swap-on fill-current w-7"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       ><path
@@ -39,7 +39,7 @@
 
     <!-- moon icon -->
     <svg
-      class="swap-off fill-current w-6"
+      class="swap-off fill-current w-7"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       ><path
