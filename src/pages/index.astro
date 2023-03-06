@@ -5,7 +5,7 @@ import SideDrawerLayout from "../layouts/Layout.astro";
 ---
 
 <SideDrawerLayout title="Welcome to Astro.">
-  <main class="m-auto max-w-2xl">
+  <main class="m-auto max-w-5xl">
     <p>
       <h2 class="text-9xl font-bold title text-primary">Hello</h2>
     </p>
@@ -29,8 +29,29 @@ import SideDrawerLayout from "../layouts/Layout.astro";
         >
       </p>
     </div>
+    <div class="w-full flex justify-end">
+      <button class="btn btn-outline btn-primary btn-lg border-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 mr-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+          ></path>
+        </svg>
 
-    <!-- <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+        Email Me
+      </button>
+    </div>
+  </main>
+
+  <!-- <h1>Welcome to <span class="text-gradient">Astro</span></h1>
     <p class="instructions">
       To get started, open the directory <code>src/pages</code> in your project.<br
       />
@@ -58,7 +79,6 @@ import SideDrawerLayout from "../layouts/Layout.astro";
         body="Come say hi to our amazing Discord community. ❤️"
       />
     </ul> -->
-  </main>
 </SideDrawerLayout>
 
 <style>
