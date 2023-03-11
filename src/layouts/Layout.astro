@@ -79,10 +79,15 @@ const { title } = Astro.props;
           </div>
         </div>
         <!-- Page content here -->
-        <div id="content">
-          <slot />
+        <div
+          id="content"
+          class="flex flex-col justify-between w-full overflow-x-hidden"
+        >
+          <div class="flex-grow">
+            <slot />
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
       <div class="drawer-side">
         <label for="my-drawer-3" class="drawer-overlay"></label>
