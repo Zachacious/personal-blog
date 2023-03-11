@@ -3,6 +3,8 @@ type BlogPostMD = {
   description: string;
   pubDate: string;
   tags: string[];
+  draft: boolean;
+  image: string;
 };
 
 export default BlogPostMD;

@@ -1,5 +1,18 @@
 ---
+import { getCollection } from "astro:content";
+import BlogCard from "../components/BlogCard.astro";
 import SideDrawerLayout from "../layouts/Layout.astro";
+
+const allPosts = await getCollection("posts", ({ data }) => {
+  return data.draft !== true;
+});
 ---
 
-<SideDrawerLayout title="Welcome to Astro.">Test</SideDrawerLayout>
+<SideDrawerLayout title="Blog - Zach Moore">
+  <main class="m-auto max-w-5xl p-4 mt-8">
+    <p>
+      <h2 class="text-7xl font-bold title text-primary">Posts</h2>
+    </p>
+    {allPosts.map((post) => <BlogCard post={post} />)}
+  </main>
+</SideDrawerLayout>

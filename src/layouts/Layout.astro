@@ -2,6 +2,7 @@
 import ThemeToggle from "../components/ThemeToggle.astro";
 import "@fontsource/poppins";
 import "@fontsource/teko";
+import "../styles/scrollbars.css";
 
 export interface Props {
   title: string;
@@ -40,14 +41,13 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
+
   <body>
     <div class="drawer">
       <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col">
         <!-- Navbar -->
-        <div
-          class="w-full navbar bg-base-100 fixed shadow-sm-dark items-center"
-        >
+        <div class="w-full navbar bg-base-100 fixed shadow-xl items-center">
           <div class="flex-none lg:hidden">
             <label for="my-drawer-3" class="btn btn-square btn-ghost">
               <svg

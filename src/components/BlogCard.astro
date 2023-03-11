@@ -1,0 +1,30 @@
+---
+const { post } = Astro.props;
+const link = `/posts/${post.slug}/`;
+---
+
+<a href={link}>
+  <div class="card lg:card-side bg-base-100 shadow-xl m-2">
+    <figure class="blog-card__img">
+      <img src={post.data.image} alt="Album" style="width:100%" />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">{post.data.title}</h2>
+      <p>{post.data.description}</p>
+      <div class="card-actions justify-end opacity-60">
+        <div>{post.data.tags.map((tag: string) => `#${tag}`)}</div>
+      </div>
+    </div>
+  </div>
+</a>
+
+<style>
+  .blog-card__img {
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
+    object-position: center;
+  }
+</style>
