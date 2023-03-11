@@ -91,31 +91,6 @@ const { title } = Astro.props;
         </ul>
       </div>
     </div>
-    <!-- <div class="drawer drawer-mobile">
-      <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col items-center justify-center">
-        <label for="my-drawer" class="btn btn-primary drawer-button lg:hidden"
-          >Open drawer</label
-        >
-        <slot />
-        <ThemeToggle />
-      </div>
-      <div class="drawer-side">
-        <label for="my-drawer" class="drawer-overlay"></label>
-
-        <ul class="menu w-80 bg-base-300 text-base-content text-secondary">
-         
-          <div class="w-full p-4">
-            <div class="w-full text-4xl text-primary text-bold title">
-              Zach Moore
-            </div>
-
-            <li><a>Sidebar Item 1</a></li>
-            <li><a>Sidebar Item 2</a></li>
-          </div>
-        </ul>
-      </div>
-    </div> -->
   </body>
 </html>
 
@@ -132,7 +107,10 @@ const { title } = Astro.props;
   html {
     font-family: "Poppins", system-ui, sans-serif;
     background-color: #f6f6f6;
-    /* font-size: x-large; */
+  }
+
+  body {
+    font-size: 13pt;
   }
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,

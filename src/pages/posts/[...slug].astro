@@ -1,7 +1,8 @@
 ---
-// import SideDrawerLayout from "../../layouts/Layout.astro";
-
+import SideDrawerLayout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+import formatDate from "../../utils/formatDate";
+import calcReadTime from "../../utils/calcReadTime";
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection("posts");
@@ -15,4 +16,68 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Content />
+<SideDrawerLayout title="Blog - Zach Moore">
+  <main class="m-auto max-w-4xl p-4 mt-8">
+    <div class="my-4 w-full title-section flex flex-wrap items-center">
+      <div>
+        <h2 class="text-7xl font-bold title text-primary">
+          {entry.data.title}
+        </h2>
+        <div class="w-full opacity-60 text-sm">
+          {entry.data.tags.map((tag: string) => `#${tag}`)}
+        </div>
+      </div>
+      <div class="w-full flex justify-start items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
+          ></path>
+        </svg>
+
+        <span class="text-sm mr-4 ml-2">{formatDate(entry.data.pubDate)}</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+          ></path>
+        </svg>
+
+        <span class="text-sm ml-2">{calcReadTime(entry.body)} Min Read</span>
+      </div>
+    </div>
+    <div class="prose w-full content my-8">
+      <Content />
+    </div>
+  </main>
+</SideDrawerLayout>
+
+<style>
+  .content {
+    max-width: unset;
+  }
+
+  .title-section {
+    min-height: 250px;
+  }
+
+  .prose {
+    font-size: 13pt !important;
+  }
+</style>

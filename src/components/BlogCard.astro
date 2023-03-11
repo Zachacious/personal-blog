@@ -5,9 +5,13 @@ const link = `/posts/${post.slug}/`;
 
 <a href={link}>
   <div class="card lg:card-side bg-base-100 shadow-xl m-2">
-    <figure class="blog-card__img">
-      <img src={post.data.image} alt="Album" style="width:100%" />
-    </figure>
+    {
+      post.data.image && (
+        <figure class="blog-card__img">
+          <img src={post.data.image} alt="Album" style="width:100%" />
+        </figure>
+      )
+    }
     <div class="card-body">
       <h2 class="card-title">{post.data.title}</h2>
       <p>{post.data.description}</p>
