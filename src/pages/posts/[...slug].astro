@@ -62,7 +62,7 @@ const { Content } = await entry.render();
             ></path>
           </svg>
 
-          <span class="text-sm mr-4 ml-2">{formatDate(entry.data.pubDate)}</span
+          <span class="text-xs mr-4 ml-2">{formatDate(entry.data.pubDate)}</span
           >
         </div>
         <div class="flex flex-wrap items-center">
@@ -112,9 +112,5 @@ const { Content } = await entry.render();
 
   .prose {
     font-size: 14pt !important;
-  }
-
-  .border-1 {
-    border-width: 1px !important;
   }
 </style>
