@@ -5,6 +5,7 @@
 enum StorageType {
   Local,
   Session,
+  ephemeral,
 }
 
 type ValueNotifierStore<T> = {
@@ -15,6 +16,8 @@ type ValueNotifierStore<T> = {
   subs: Set<(value: T) => void>;
 };
 
+const ephemeralStorage = new Map<string, string>();
+
 const createValueNotifierStore = <T>(
   name: string,
   defaultValue?: T,
@@ -22,22 +25,29 @@ const createValueNotifierStore = <T>(
   storageType: StorageType = StorageType.Local
 ): ValueNotifierStore<T> => {
   const storage =
-    storageType === StorageType.Local ? localStorage : sessionStorage;
+    storageType === StorageType.Local
+      ? localStorage
+      : storageType === StorageType.Session
+      ? sessionStorage
+      : null;
 
   const subs: Set<(value: T) => void> = new Set();
 
   // set initial state
-  if (initialState && !storage.getItem(name)) {
-    storage.setItem(name, JSON.stringify(initialState));
+  if (storageType === StorageType.ephemeral) {
+    ephemeralStorage.set(name, JSON.stringify(initialState));
+  } else if (initialState && !storage?.getItem(name)) {
+    storage?.setItem(name, JSON.stringify(initialState));
   }
 
   const get = () => {
-    const value = storage.getItem(name);
+    const value = storage ? storage.getItem(name) : ephemeralStorage.get(name);
     return value ? JSON.parse(value) : defaultValue ?? undefined;
   };
 
   const set = (value: T) => {
-    storage.setItem(name, JSON.stringify(value));
+    if (storage) storage.setItem(name, JSON.stringify(value));
+    else ephemeralStorage.set(name, JSON.stringify(value));
     subs.forEach((cb) => cb(value));
   };
 
