@@ -18,8 +18,10 @@ const { Content } = await entry.render();
 
 <SideDrawerLayout title="Blog - Zach Moore">
   <main class="m-auto max-w-4xl p-4 mt-8">
-    <div class="my-4 w-full title-section flex flex-wrap items-center">
-      <div>
+    <div
+      class="my-4 w-full title-section flex flex-col justify-between flex-wrap items-center"
+    >
+      <div class="w-full">
         <h2 class="text-8xl font-bold title text-primary">
           {entry.data.title}
         </h2>
@@ -36,31 +38,60 @@ const { Content } = await entry.render();
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
-            ></path>
+              d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
 
-          <span class="text-sm mr-4 ml-2">{formatDate(entry.data.pubDate)}</span
-          >
+          <span class="text-sm ml-2">{calcReadTime(entry.body)} Min Read</span>
+        </div>
+      </div>
+
+      <div class="w-full opacity-60 text-xs my-2 flex justify-end items-center">
+        <div class="flex flex-wrap items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-6 h-6"
+            class="w-4"
           >
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
-              d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"
+            ></path>
           </svg>
 
-          <span class="text-sm ml-2">{calcReadTime(entry.body)} Min Read</span>
+          <span class="text-sm mr-4 ml-2">{formatDate(entry.data.pubDate)}</span
+          >
         </div>
-
-        <div class="w-full opacity-60 text-sm my-2">
-          {entry.data.tags.map((tag: string) => `#${tag}`)}
+        <div class="flex flex-wrap items-center">
+          <span class="mr-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z"
+              ></path>
+            </svg>
+          </span>
+          <span class="mr-1">Filed Under</span>
+          <div class="">
+            {
+              entry.data.tags.map((tag: string) => (
+                <span class="p-1 m-1 border-1 rounded-md border-secondary cursor-pointer capitalize">
+                  {tag}
+                </span>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -81,5 +112,9 @@ const { Content } = await entry.render();
 
   .prose {
     font-size: 14pt !important;
+  }
+
+  .border-1 {
+    border-width: 1px !important;
   }
 </style>
