@@ -1,36 +1,72 @@
 ---
 ---
 
-<div class="relative z-10" role="dialog" aria-modal="true">
-  <!--
-    Background backdrop, show/hide based on modal state.
+<script>
+  import useSearchStore from "../store/useSearchStore";
+  const searchStore = useSearchStore();
 
-    Entering: "ease-out duration-300"
-      From: "opacity-0"
-      To: "opacity-100"
-    Leaving: "ease-in duration-200"
-      From: "opacity-100"
-      To: "opacity-0"
-  -->
-  <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"></div>
+  const searchModalEl = document.getElementById("searchModal");
+  const searchBackdropEl = document.getElementById("searchBackdrop");
+  const searchPaletteEl = document.getElementById("searchPalette");
 
-  <div class="fixed inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20">
-    <!--
-      Command palette, show/hide based on modal state.
+  const hideSearchModal = () => {
+    if (!searchModalEl || !searchBackdropEl || !searchPaletteEl) return;
+    searchModalEl.style.opacity = "0";
+    searchModalEl.style.pointerEvents = "none";
+    searchBackdropEl.style.opacity = "0";
+    searchPaletteEl.style.opacity = "0";
+    searchPaletteEl.style.transform = "scale(0.95)";
+  };
 
-      Entering: "ease-out duration-300"
-        From: "opacity-0 scale-95"
-        To: "opacity-100 scale-100"
-      Leaving: "ease-in duration-200"
-        From: "opacity-100 scale-100"
-        To: "opacity-0 scale-95"
-    -->
+  const showSearchModal = () => {
+    if (!searchModalEl || !searchBackdropEl || !searchPaletteEl) return;
+    searchModalEl.style.opacity = "1";
+    searchModalEl.style.pointerEvents = "auto";
+    searchBackdropEl.style.opacity = "1";
+    searchPaletteEl.style.opacity = "1";
+    searchPaletteEl.style.transform = "scale(1)";
+  };
+
+  hideSearchModal();
+
+  searchStore.value.subscribe((value) => {
+    if (value.open) {
+      showSearchModal();
+    } else {
+      hideSearchModal();
+    }
+  });
+
+  if (searchBackdropEl) {
+    searchBackdropEl.addEventListener("click", () =>
+      searchStore.toggleSearchModal()
+    );
+  }
+</script>
+
+<div
+  id="searchModal"
+  class="relative z-10"
+  role="dialog"
+  aria-modal="true"
+  style="opacity: 0"
+>
+  <div
+    id="searchBackdrop"
+    class="fixed inset-0 bg-base-100 bg-opacity-25 transition-opacity"
+  >
+  </div>
+
+  <div
+    class="fixed pointer-events-none inset-0 z-10 overflow-y-auto p-4 sm:p-6 md:p-20 bg-base-100 bg-opacity-25 transition-opacity"
+  >
     <div
-      class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+      id="searchPalette"
+      class="mx-auto pointer-events-auto max-w-xl transform divide-y border-secondary divide-secondary overflow-hidden rounded-xl bg-neutral shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
     >
       <div class="relative">
         <svg
-          class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-gray-400"
+          class="pointer-events-none absolute top-3.5 left-4 h-5 w-5 text-secondary"
           viewBox="0 0 20 20"
           fill="currentColor"
           aria-hidden="true"
@@ -42,7 +78,7 @@
         </svg>
         <input
           type="text"
-          class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+          class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-secondary placeholder:text-secondary-400 focus:ring-0 sm:text-sm"
           placeholder="Search..."
           role="combobox"
           aria-expanded="false"
@@ -52,7 +88,7 @@
 
       <!-- Results, show/hide based on command palette state -->
       <ul
-        class="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800"
+        class="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-secondary-400"
         id="options"
         role="listbox"
       >
@@ -100,7 +136,7 @@
       </ul>
 
       <!-- Empty state, show/hide based on command palette state -->
-      <p class="p-4 text-sm text-gray-500">No people found.</p>
+      <p class="p-4 text-sm text-secondary-500">No people found.</p>
     </div>
   </div>
 </div>

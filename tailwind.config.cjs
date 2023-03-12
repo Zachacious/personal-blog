@@ -23,8 +23,21 @@ module.exports = {
           warning: "#f0c352ff",
           error: "#b00d34ff",
         },
+        mylight: {
+          primary: "#18171cff",
+          secondary: "#243a75ff",
+          accent: "#a45504ff",
+          // neutral: "#0d1217",
+          neutral: "#cfd3cdff",
+          // "base-100": "#39224aff",
+          "base-100": "#efdee3ff",
+          info: "#5930b9ff",
+          success: "#36a840ff",
+          warning: "#8dcf15ff",
+          error: "#db6f3bff",
+        },
       },
-      "light",
+      // "light",
     ],
 
     // styled: true,
@@ -35,6 +48,7 @@ module.exports = {
     // rtl: false,
     // prefix: "",
     darkTheme: "mydark",
+    lightTheme: "mylight",
   },
 
   plugins: [

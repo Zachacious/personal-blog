@@ -2,7 +2,7 @@ import type { ValueNotifierStore } from "./valueNotifierStore";
 import createValueNotifierStore from "./valueNotifierStore";
 
 const initialState = {
-  theme: "light",
+  theme: "mylight",
 };
 
 let store = <ValueNotifierStore<typeof initialState>>{};
@@ -22,8 +22,7 @@ const useThemeStore = () => {
 
   const toggleTheme = () => {
     const state = store.get();
-    console.log("state", state);
-    state.theme = state.theme === "light" ? "dark" : "light";
+    state.theme = state.theme === "mylight" ? "dark" : "mylight";
     store.set(state);
   };
 

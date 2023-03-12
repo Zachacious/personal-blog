@@ -4,6 +4,7 @@ import "@fontsource/poppins";
 import "@fontsource/teko";
 import "../styles/scrollbars.css";
 import Footer from "../components/Footer.astro";
+import SearchPalette from "../components/SearchPalette.astro";
 
 export interface Props {
   title: string;
@@ -14,6 +15,7 @@ const { title } = Astro.props;
 
 <script>
   import useThemeStore from "../store/useThemeStore";
+  import useSearchStore from "../store/useSearchStore";
 
   const themeState = useThemeStore();
   const html = document.querySelector("html");
@@ -32,6 +34,14 @@ const { title } = Astro.props;
       content.style.marginTop = `${navbarHeight}px`;
     }
   }
+
+  const searchState = useSearchStore();
+  const openSearchModal = () => {
+    searchState.toggleSearchModal();
+  };
+
+  const searchBtn = document.getElementById("searchBtn");
+  searchBtn?.addEventListener("click", openSearchModal);
 </script>
 
 <html lang="en">
@@ -73,7 +83,25 @@ const { title } = Astro.props;
             </ul>
           </div>
           <div class="flex-1">
-            <div class="w-full flex justify-end items-center px-5">
+            <div
+              class="w-full flex justify-end items-center px-5 text-secondary"
+            >
+              <div id="searchBtn" class="mr-4 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                  ></path>
+                </svg>
+              </div>
               <ThemeToggle />
             </div>
           </div>
@@ -98,6 +126,8 @@ const { title } = Astro.props;
         </ul>
       </div>
     </div>
+
+    <SearchPalette />
   </body>
 </html>
 

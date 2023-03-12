@@ -69,3 +69,4 @@ const createValueNotifierStore = <T>(
 
 export default createValueNotifierStore;
 export type { ValueNotifierStore };
+export { StorageType };
