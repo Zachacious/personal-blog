@@ -10,9 +10,7 @@ const allPosts = await getCollection("posts", ({ data }) => {
 
 <SideDrawerLayout title="Blog - Zach Moore">
   <main class="m-auto max-w-4xl p-4 mt-8">
-    <p>
-      <h2 class="text-8xl font-bold title text-primary my-4">Posts</h2>
-    </p>
+    <h2 class="text-8xl font-bold title text-primary my-4">Posts</h2>
     {allPosts.map((post) => <BlogCard post={post} />)}
   </main>
 </SideDrawerLayout>

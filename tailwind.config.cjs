@@ -11,7 +11,9 @@ module.exports = {
     themes: [
       {
         mydark: {
-          primary: "#7bb05cff",
+          // primary: "#7bb05cff",
+          // primary: "#afce94ff",
+          primary: "#5bb081ff",
           secondary: "#748484ff",
           accent: "#fcfdfeff",
           // neutral: "#0d1217",

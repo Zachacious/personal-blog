@@ -1,0 +1,37 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import BlogCard from "../../components/BlogCard.astro";
+import SideDrawerLayout from "../../layouts/Layout.astro";
+import type BlogPost from "../../types/BlogPost";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("posts", ({ data }) => {
+    return data.draft !== true;
+  });
+
+  const tags = allPosts.map((post) => post.data.tags).flat();
+
+  return tags.map((tag) => {
+    return {
+      params: {
+        tag: tag,
+      },
+      props: {
+        posts: allPosts.filter((post) => post.data.tags.includes(tag)),
+      },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<SideDrawerLayout title={`Zach Moore - Filed Under ${tag}`}>
+  <main class="m-auto max-w-4xl p-4 mt-8">
+    <h2 class="text-8xl font-bold title text-primary my-4 capitalize">
+      Filed Under {tag}
+    </h2>
+    {posts.map((post: BlogPost) => <BlogCard post={post} />)}
+  </main>
+</SideDrawerLayout>
