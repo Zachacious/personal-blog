@@ -1,13 +1,23 @@
 ---
+import Spinner from "./Spinner.astro";
 ---
 
 <script>
+  const pagefind = await import("../_pagefind/pagefind.js");
   import useSearchStore from "../store/useSearchStore";
   const searchStore = useSearchStore();
+
+  let searchPaletteLastState = false;
 
   const searchModalEl = document.getElementById("searchModal");
   const searchBackdropEl = document.getElementById("searchBackdrop");
   const searchPaletteEl = document.getElementById("searchPalette");
+
+  const searchInput = document.getElementById("searchInput");
+
+  const searchResultsEl = document.getElementById("search-results");
+
+  const searchSpinner = document.getElementById("searchSpinner");
 
   const hideSearchModal = () => {
     if (!searchModalEl || !searchBackdropEl || !searchPaletteEl) return;
@@ -16,6 +26,7 @@
     searchBackdropEl.style.opacity = "0";
     searchPaletteEl.style.opacity = "0";
     searchPaletteEl.style.transform = "scale(0.95)";
+    searchPaletteEl.style.pointerEvents = "none";
   };
 
   const showSearchModal = () => {
@@ -25,35 +36,118 @@
     searchBackdropEl.style.opacity = "1";
     searchPaletteEl.style.opacity = "1";
     searchPaletteEl.style.transform = "scale(1)";
+    searchPaletteEl.style.pointerEvents = "auto";
+    searchInput?.focus();
   };
 
-  hideSearchModal();
+  const showSpinner = () => {
+    if (!searchSpinner) return;
+    searchSpinner.style.opacity = "1";
+  };
 
-  searchStore.value.subscribe((value) => {
-    if (value.open) {
-      showSearchModal();
+  const hideSpinner = () => {
+    if (!searchSpinner) return;
+    searchSpinner.style.opacity = "0";
+  };
+
+  const updateSearchModel = (value: string) => {
+    searchStore.setSearchModel(value);
+  };
+
+  const updateSearchResults = async () => {
+    if (!searchResultsEl) return;
+
+    showSpinner();
+
+    const results = await pagefind.debouncedSearch(
+      searchStore.value.get().search
+    );
+    const resultsData = results
+      ? await Promise.all(results.results.slice(0, 10).map((r) => r.data()))
+      : [];
+    // console.log(resultsData);
+
+    const numResults = resultsData.length;
+
+    if (numResults === 0) {
+      searchResultsEl.innerHTML = `<p class="p-4 text-sm text-secondary-500">No results found.</p>`;
     } else {
-      hideSearchModal();
+      searchResultsEl.innerHTML = `
+        <ul
+        class="max-h-72 scroll-py-2 overflow-y-auto py-3 text-sm text-secondary-400"
+        id="options"
+        role="listbox"
+      >
+        ${resultsData
+          .map(
+            (data) => `
+          <li
+          class=" select-none px-4 py-2 hover:bg-neutral"
+          role="option"
+          tabindex="-1"
+        >
+          <a href="${data.raw_url}">
+            <div class="w-full flex justify-between">
+            <span>${data.meta.title}</span>
+            <span class="text-secondary-100 opacity-50 text-xs">${data.raw_url}</span>
+            </div>
+
+            <div class="w-full opacity-60 text-xs">
+              ${data.excerpt}
+              </div>
+            </a>
+        </li>
+          `
+          )
+          .join("")}
+      </ul>
+      `;
     }
-  });
+
+    hideSpinner();
+  };
+
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      updateSearchModel((e.target as HTMLInputElement).value);
+    });
+  }
 
   if (searchBackdropEl) {
     searchBackdropEl.addEventListener("click", () =>
       searchStore.toggleSearchModal()
     );
   }
+
+  searchStore.value.subscribe((value) => {
+    if (value.open) {
+      if (!searchPaletteLastState) {
+        showSearchModal();
+        searchPaletteLastState = true;
+      }
+    } else {
+      if (searchPaletteLastState) {
+        hideSearchModal();
+        searchPaletteLastState = false;
+      }
+    }
+
+    updateSearchResults();
+  });
+
+  hideSearchModal();
 </script>
 
 <div
   id="searchModal"
-  class="relative z-10"
+  class="relative z-10 transition-opacity"
   role="dialog"
   aria-modal="true"
   style="opacity: 0"
 >
   <div
     id="searchBackdrop"
-    class="fixed inset-0 bg-base-100 bg-opacity-25 transition-opacity"
+    class="fixed inset-0 bg-neutral bg-opacity-70 transition-opacity"
   >
   </div>
 
@@ -62,7 +156,7 @@
   >
     <div
       id="searchPalette"
-      class="mx-auto pointer-events-auto max-w-xl transform divide-y border-secondary divide-secondary overflow-hidden rounded-xl bg-neutral shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
+      class="mx-auto pointer-events-auto max-w-xl transform divide-y border-secondary divide-secondary overflow-hidden rounded-xl bg-base-100 shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
     >
       <div class="relative">
         <svg
@@ -77,6 +171,7 @@
             clip-rule="evenodd"></path>
         </svg>
         <input
+          id="searchInput"
           type="text"
           class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-secondary placeholder:text-secondary-400 focus:ring-0 sm:text-sm"
           placeholder="Search..."
@@ -84,59 +179,35 @@
           aria-expanded="false"
           aria-controls="options"
         />
+        <div
+          id="searchSpinner"
+          class="pointer-events-none absolute top-3 right-3 transition-opacity"
+          style="opacity: 0"
+        >
+          <Spinner size="25px" color="secondary" />
+        </div>
       </div>
 
+      <div id="search-results"></div>
+
       <!-- Results, show/hide based on command palette state -->
-      <ul
+      <!-- <ul
         class="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-secondary-400"
         id="options"
         role="listbox"
-      >
-        <!-- Active: "bg-indigo-600 text-white" -->
-        <li
+      > -->
+      <!-- Active: "bg-indigo-600 text-white" -->
+      <!-- <li
           class="cursor-default select-none px-4 py-2"
-          id="option-1"
           role="option"
           tabindex="-1"
         >
           Leslie Alexander
         </li>
-        <li
-          class="cursor-default select-none px-4 py-2"
-          id="option-2"
-          role="option"
-          tabindex="-1"
-        >
-          Michael Foster
-        </li>
-        <li
-          class="cursor-default select-none px-4 py-2"
-          id="option-3"
-          role="option"
-          tabindex="-1"
-        >
-          Dries Vincent
-        </li>
-        <li
-          class="cursor-default select-none px-4 py-2"
-          id="option-4"
-          role="option"
-          tabindex="-1"
-        >
-          Lindsay Walton
-        </li>
-        <li
-          class="cursor-default select-none px-4 py-2"
-          id="option-5"
-          role="option"
-          tabindex="-1"
-        >
-          Courtney Henry
-        </li>
-      </ul>
+      </ul> -->
 
       <!-- Empty state, show/hide based on command palette state -->
-      <p class="p-4 text-sm text-secondary-500">No people found.</p>
+      <!-- <p class="p-4 text-sm text-secondary-500">No people found.</p> -->
     </div>
   </div>
 </div>

@@ -4,7 +4,9 @@ const link = `/posts/${post.slug}/`;
 ---
 
 <a href={link}>
-  <div class="card lg:card-side bg-base-100 shadow-xl m-2 hover:bg-neutral">
+  <div
+    class="card lg:card-side bg-base-100 shadow-xl m-2 hover:bg-neutral cursor-pointer"
+  >
     <!-- {
       post.data.image && (
         <figure class="blog-card__img">
@@ -20,21 +22,21 @@ const link = `/posts/${post.slug}/`;
       </div>
     </div>
   </div>
-
-  <style>
-    .blog-card__img {
-      /* height: 200px;
-    width: 200px;  */
-      overflow: hidden;
-      position: relative;
-      object-fit: cover;
-      object-position: center;
-      filter: blur(1px);
-    }
-
-    .blog-card {
-      width: 250px;
-      height: 300px;
-    }
-  </style>
 </a>
+
+<style>
+  .blog-card__img {
+    /* height: 200px;
+    width: 200px;  */
+    overflow: hidden;
+    position: relative;
+    object-fit: cover;
+    object-position: center;
+    filter: blur(1px);
+  }
+
+  .blog-card {
+    width: 250px;
+    height: 300px;
+  }
+</style>

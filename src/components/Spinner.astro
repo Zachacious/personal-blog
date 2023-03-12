@@ -1,0 +1,38 @@
+---
+const { size, color } = Astro.props;
+const style = `
+  width: ${size};
+    height: ${size};
+`;
+
+const cls = `lds-dual-ring bg-${color}`;
+---
+
+<div class={cls} style={style}></div>
+
+<style>
+  .lds-dual-ring {
+    display: inline-block;
+    /* width: 80px;
+    height: 80px; */
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 85%;
+    height: 85%;
+    /* margin: 20px; */
+    border-radius: 50%;
+    border: 0.1rem solid currentColor;
+    border-color: currentColor transparent currentColor transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
