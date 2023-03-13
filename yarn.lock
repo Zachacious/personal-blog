@@ -444,6 +444,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource/poppins/-/poppins-4.5.10.tgz#44dbfeacb5d89efca5ad7ad6cc941b2ac1ee424b"
   integrity sha512-oYZVHsnlwV3VWM1SE/m6SUxVh0QLk5+2wB+lBiXcI7N/0KVQWmV9YykaPqfJHBLvmdya+MAOnv+BQHeLU1vOOw==
 
+"@fontsource/staatliches@^4.5.9":
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/staatliches/-/staatliches-4.5.9.tgz#2dfc5a03ca24201978877bd1820940ace3c0d6a5"
+  integrity sha512-zphSXq1q4mvLwMG6X5K/AG5BLcldDQbT4aZYMZpO/+FnGlTH2hTRII3axeozNDRlRX0UuSetamV7ccq3mBmTUQ==
+
 "@fontsource/teko@^4.5.9":
   version "4.5.9"
   resolved "https://registry.yarnpkg.com/@fontsource/teko/-/teko-4.5.9.tgz#fa960c83943cd42e077ec396a9524db04bb6f244"

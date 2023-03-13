@@ -1,7 +1,8 @@
 ---
 import ThemeToggle from "../components/ThemeToggle.astro";
 import "@fontsource/poppins";
-import "@fontsource/teko";
+// import "@fontsource/teko";
+import "@fontsource/staatliches";
 import "../styles/scrollbars.css";
 import Footer from "../components/Footer.astro";
 import SearchPalette from "../components/SearchPalette.astro";
@@ -157,20 +158,22 @@ const { title } = Astro.props;
     );
   }
   html {
-    font-family: "Poppins", system-ui, sans-serif;
     background-color: #f6f6f6;
   }
 
   body {
+    font-family: "Poppins", system-ui, sans-serif;
     font-size: 13pt;
   }
+
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
   }
 
   .title {
-    font-family: "Teko", sans-serif;
+    /* font-family: "Teko", sans-serif; */
+    font-family: "Staatliches", sans-serif;
   }
 
   /* .drawer-side {
@@ -188,5 +191,18 @@ const { title } = Astro.props;
 
   .border-1 {
     border-width: 1px !important;
+  }
+
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    font-family: "Staatliches", sans-serif;
+    color: theme("colors.secondary");
+  }
+
+  .text-poppins {
+    font-family: "Poppins", system-ui, sans-serif;
+  }
+
+  .excerpt mark {
+    background-color: theme("colors.primary");
   }
 </style>
